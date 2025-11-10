@@ -66,6 +66,25 @@ def create_cnn_agent(env, learning_rate=1e-4, buffer_size=100000, learning_start
     )
     return agent
 
+def setup_environment(env_id="ALE/Breakout-v5", n_envs=1, n_stack=4):
+    """
+    Setup the Atari environment with frame stacking.
+    
+    Args:
+        env_id: The environment ID (default: Breakout-v5)
+        n_envs: Number of parallel environments
+        n_stack: Number of frames to stack
+    
+    Returns:
+        Vectorized and frame-stacked environment
+    """
+    # Create the Atari environment
+    env = make_atari_env(env_id, n_envs=n_envs, seed=0)
+    
+    # Stack frames to give the agent temporal information
+    env = VecFrameStack(env, n_stack=n_stack)
+    
+    return env
 
 if __name__ == "__main__":
     main()
