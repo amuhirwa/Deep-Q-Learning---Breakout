@@ -86,6 +86,46 @@ def setup_environment(env_id="ALE/Breakout-v5", n_envs=1, n_stack=4):
     
     return env
 
+def main():
+    """
+    Main function to define and compare DQN agents with different policies.
+    """
+    print("=" * 60)
+    print("DQN Agent Definition for Atari Breakout")
+    print("=" * 60)
+    
+    # Setup environment
+    print("\n[1/3] Setting up Breakout environment...")
+    env = setup_environment()
+    print(f"Environment created: {env}")
+    print(f"Observation space: {env.observation_space}")
+    print(f"Action space: {env.action_space}")
+    
+    # Create MLP agent
+    print("\n[2/3] Creating DQN agent with MLPPolicy...")
+    mlp_agent = create_mlp_agent(env)
+    print("MLP Agent created successfully!")
+    print(f"Policy: {mlp_agent.policy}")
+    print(f"Policy class: {mlp_agent.policy.__class__.__name__}")
+    
+    # Create CNN agent
+    print("\n[3/3] Creating DQN agent with CNNPolicy...")
+    cnn_agent = create_cnn_agent(env)
+    print("CNN Agent created successfully!")
+    print(f"Policy: {cnn_agent.policy}")
+    print(f"Policy class: {cnn_agent.policy.__class__.__name__}")
+    
+    print("\n" + "=" * 60)
+    print("Agent Definition Complete!")
+    print("=" * 60)
+    print("\nBoth agents have been defined:")
+    print("  - MLP Agent: Uses Multilayer Perceptron (suitable for low-dimensional observations)")
+    print("  - CNN Agent: Uses Convolutional Neural Network (suitable for image observations)")
+    print("\nNote: For Atari games with image observations, CNNPolicy is typically preferred.")
+    
+    # Clean up
+    env.close()
+
 if __name__ == "__main__":
     main()
 
