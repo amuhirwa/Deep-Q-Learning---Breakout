@@ -3,7 +3,7 @@ from stable_baselines3.dqn.policies import MlpPolicy, CnnPolicy
 from environment import setup_environment
 
 
-def create_mlp_agent(env, learning_rate=1e-4, buffer_size=100000, learning_starts=1000):
+def create_mlp_agent(env, learning_rate=1e-4, buffer_size=100000, learning_starts=1000, batch_size=32):
     """
     Create a DQN agent with MLP (Multilayer Perceptron) policy.
     
@@ -12,6 +12,7 @@ def create_mlp_agent(env, learning_rate=1e-4, buffer_size=100000, learning_start
         learning_rate: Learning rate for the optimizer
         buffer_size: Size of the replay buffer
         learning_starts: Number of steps before learning starts
+        batch_size: Number of samples to use for each gradient update
     
     Returns:
         DQN agent with MLPPolicy
@@ -22,6 +23,7 @@ def create_mlp_agent(env, learning_rate=1e-4, buffer_size=100000, learning_start
         learning_rate=learning_rate,
         buffer_size=buffer_size,
         learning_starts=learning_starts,
+        batch_size=batch_size,
         target_update_interval=1000,
         train_freq=4,
         gradient_steps=1,
@@ -34,7 +36,7 @@ def create_mlp_agent(env, learning_rate=1e-4, buffer_size=100000, learning_start
     return agent
 
 
-def create_cnn_agent(env, learning_rate=1e-4, buffer_size=100000, learning_starts=1000):
+def create_cnn_agent(env, learning_rate=1e-4, buffer_size=100000, learning_starts=1000, batch_size=32):
     """
     Create a DQN agent with CNN (Convolutional Neural Network) policy.
     
@@ -43,6 +45,7 @@ def create_cnn_agent(env, learning_rate=1e-4, buffer_size=100000, learning_start
         learning_rate: Learning rate for the optimizer
         buffer_size: Size of the replay buffer
         learning_starts: Number of steps before learning starts
+        batch_size: Number of samples to use for each gradient update
     
     Returns:
         DQN agent with CNNPolicy
@@ -53,6 +56,7 @@ def create_cnn_agent(env, learning_rate=1e-4, buffer_size=100000, learning_start
         learning_rate=learning_rate,
         buffer_size=buffer_size,
         learning_starts=learning_starts,
+        batch_size=batch_size,
         target_update_interval=1000,
         train_freq=4,
         gradient_steps=1,

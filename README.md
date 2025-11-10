@@ -2,6 +2,18 @@
 
 A Deep Q-Network (DQN) implementation for training an agent to play Atari Breakout using Stable-Baselines3. This project explores different policy architectures and determines the optimal policy for the Atari Breakout environment.
 
+## Project Structure
+
+The project is organized into modular components for better code organization and maintainability:
+
+- **`environment.py`**: Contains all environment setup logic, including ALE (Arcade Learning Environment) imports, Gymnasium environment creation, and frame stacking configuration. The `setup_environment()` function handles the creation and configuration of the Atari Breakout environment.
+
+- **`train.py`**: Contains the main training script with agent creation functions for both MLP and CNN policies. This file imports the environment setup from `environment.py` and defines the DQN agents with their respective hyperparameters.
+
+- **`requirements.txt`**: Lists all Python dependencies required for the project.
+
+- **`README.md`**: This file, containing project documentation and usage instructions.
+
 ## Agent Definition
 
 The DQN agent is defined using Stable-Baselines3's DQN algorithm, which implements the Deep Q-Learning algorithm with experience replay and target networks. The agent is configured with the following hyperparameters:
@@ -9,6 +21,7 @@ The DQN agent is defined using Stable-Baselines3's DQN algorithm, which implemen
 - **Learning Rate**: 1e-4
 - **Replay Buffer Size**: 100,000 transitions
 - **Learning Starts**: 1,000 steps (random exploration before learning begins)
+- **Batch Size**: 32 samples per gradient update
 - **Target Update Interval**: 1,000 steps
 - **Training Frequency**: Every 4 steps
 - **Gradient Steps**: 1 per training update
@@ -73,10 +86,17 @@ The MLP policy is not recommended for Atari Breakout because:
 
 ## Environment Setup
 
-The project uses the `ALE/Breakout-v5` environment from Gymnasium, which provides the standard Atari Breakout game with:
+The environment setup is handled in `environment.py`, which encapsulates all environment-related configuration. The project uses the `ALE/Breakout-v5` environment from Gymnasium, which provides the standard Atari Breakout game with:
 - Preprocessed observations (grayscale, resized)
-- Frame stacking for temporal information
+- Frame stacking for temporal information (4 consecutive frames by default)
 - Standard Atari action space
+- Vectorized environment support for parallel training
+
+The `setup_environment()` function in `environment.py` handles:
+- ALE namespace registration for Atari environments
+- Environment creation with automatic preprocessing
+- Frame stacking configuration
+- Error handling with fallback mechanisms
 
 ## Installation
 
@@ -95,9 +115,17 @@ python train.py
 ```
 
 The script will:
-1. Set up the Breakout environment
-2. Create DQN agents with both MLP and CNN policies
-3. Display policy recommendations for the environment
+1. Import the environment setup from `environment.py`
+2. Set up the Breakout environment using `setup_environment()`
+3. Create DQN agents with both MLP and CNN policies
+4. Display policy recommendations for the environment
+
+### Code Organization
+
+The modular structure allows for easy modification and extension:
+- To change environment settings, modify `environment.py`
+- To modify agent hyperparameters or add new policies, edit `train.py`
+- The separation of concerns makes the codebase more maintainable and testable
 
 ## Dependencies
 
