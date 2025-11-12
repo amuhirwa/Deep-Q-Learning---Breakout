@@ -11,6 +11,7 @@ import gymnasium as gym
 from stable_baselines3.common.env_util import make_atari_env
 from stable_baselines3.common.vec_env import VecFrameStack, DummyVecEnv
 
+gym.register_envs(ale_py)
 
 def setup_environment(env_id="ALE/Breakout-v5", n_envs=1, n_stack=4):
     """
