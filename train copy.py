@@ -112,7 +112,7 @@ def train_dqn_agent(
     print(f"{'='*80}\n")
     
     # Create environment
-    env = setup_environment()
+    env = setup_environment(n_envs=4)
     
     # Create DQN model
     model = DQN(
@@ -520,14 +520,14 @@ def main():
     print("Environment: Breakout-v5")
     print("="*80)
     
-    # Option 1: Compare policies (optional)
+    # Option 1: Compare policies
     print("\n\nOption 1: Compare MLP vs CNN policies")
     print("This will run quick tests to compare policy performance")
     # Uncomment to run: 
     # compare_policies()
     
     # Option 2: Run single training with best hyperparameters
-    print("\n\nOption 2: Train single model with specified hyperparameters")
+    # print("\n\nOption 2: Train single model with specified hyperparameters")
     # model, callback, mean_reward, std_reward = train_dqn_agent(
     #     policy_type="CnnPolicy",
     #     total_timesteps=1000000,
@@ -540,7 +540,7 @@ def main():
     #     experiment_name="final_model"
     # )
     
-    # Save as the primary model
+    # # Save as the primary model
     # model.save("models/dqn_model.zip")
     # print("\nPrimary model saved as: models/dqn_model.zip")
     
