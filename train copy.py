@@ -2,7 +2,6 @@
 DQN Training Script for Atari Breakout Environment
 Trains a DQN agent using Stable Baselines3 with hyperparameter tuning
 """
-
 import gymnasium as gym
 import numpy as np
 import matplotlib.pyplot as plt
@@ -252,7 +251,7 @@ def compare_policies():
     return results
 
 
-def hyperparameter_tuning_experiments(experiments):
+def hyperparameter_tuning_experiments(experiments, member_name):
     """
     Run multiple experiments with different hyperparameter configurations
     Returns a formatted table of results
@@ -309,7 +308,7 @@ def hyperparameter_tuning_experiments(experiments):
     print_results_table(results)
     
     # Save results to file
-    save_results(results)
+    save_results(results, exp['name'], member_name)
     
     return results
 
@@ -383,19 +382,23 @@ def print_results_table(results):
     print("="*120)
 
 
-def save_results(results):
+def save_results(results, exp_name, member_name):
     """
     Save results to JSON and formatted text file
     """
+    # Create the member-specific results directory if it doesn't exist
+    save_dir = os.path.join("results", member_name)
+    os.makedirs(save_dir, exist_ok=True)
+
     # Save as JSON
-    with open('results/hyperparameter_results.json', 'w') as f:
+    with open(f'results/{member_name}/hyperparameter_results_{exp_name}.json', 'w') as f:
         json.dump(results, f, indent=2)
     
     # Save as formatted text
-    with open('results/hyperparameter_results.txt', 'w') as f:
+    with open(f'results/{member_name}/hyperparameter_results_{exp_name}.txt', 'w') as f:
         f.write("HYPERPARAMETER TUNING RESULTS\n")
         f.write("="*120 + "\n\n")
-        f.write("MEMBER NAME: [YOUR NAME HERE]\n\n")
+        f.write(f"MEMBER NAME: {member_name}\n\n")
         f.write(f"{'Experiment':<25} | {'Hyperparameters':<80} | {'Behavior':<50}\n")
         f.write("-"*160 + "\n")
         
@@ -408,8 +411,8 @@ def save_results(results):
                 f.write(f"{result['experiment']:<25} | ERROR: {result['error']}\n")
     
     print(f"\nResults saved to:")
-    print(f"  - results/hyperparameter_results.json")
-    print(f"  - results/hyperparameter_results.txt")
+    print(f"  - results/{member_name}/hyperparameter_results_{exp_name}.json")
+    print(f"  - results/{member_name}/hyperparameter_results_{exp_name}.txt")
 
 
 experiments = [
@@ -519,21 +522,21 @@ def main():
     print("\n\nOption 1: Compare MLP vs CNN policies")
     print("This will run quick tests to compare policy performance")
     # Uncomment to run: 
-    compare_policies()
+    # compare_policies()
     
     # Option 2: Run single training with best hyperparameters
     print("\n\nOption 2: Train single model with specified hyperparameters")
-    model, callback, mean_reward, std_reward = train_dqn_agent(
-        policy_type="CnnPolicy",
-        total_timesteps=1000000,
-        learning_rate=1e-4,
-        gamma=0.99,
-        batch_size=32,
-        exploration_initial_eps=1.0,
-        exploration_final_eps=0.05,
-        exploration_fraction=0.1,
-        experiment_name="final_model"
-    )
+    # model, callback, mean_reward, std_reward = train_dqn_agent(
+    #     policy_type="CnnPolicy",
+    #     total_timesteps=1000000,
+    #     learning_rate=1e-4,
+    #     gamma=0.99,
+    #     batch_size=32,
+    #     exploration_initial_eps=1.0,
+    #     exploration_final_eps=0.05,
+    #     exploration_fraction=0.1,
+    #     experiment_name="final_model"
+    # )
     
     # Save as the primary model
     # model.save("models/dqn_model.zip")
@@ -541,7 +544,7 @@ def main():
     
     # Option 3: Run hyperparameter tuning experiments
     print("\n\nOption 3: Run all 10 hyperparameter tuning experiments")
-    # Uncomment to run: hyperparameter_tuning_experiments(experiments)
+    hyperparameter_tuning_experiments(experiments, "Michael")
     
     print("\n\n" + "="*80)
     print("TRAINING COMPLETE!")
