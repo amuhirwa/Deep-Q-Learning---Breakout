@@ -97,7 +97,8 @@ def train_dqn_agent(
         model: Trained DQN model
         callback: Training callback with logged metrics
     """
-    
+    epsilon_decay_per_step = (exploration_initial_eps - exploration_final_eps) / (exploration_fraction * total_timesteps)
+
     print(f"\n{'='*80}")
     print(f"Starting Experiment: {experiment_name}")
     print(f"Policy: {policy_type}")
@@ -174,7 +175,7 @@ def train_dqn_agent(
     except ImportError:
         pass
 
-    return None, callback, mean_reward, std_reward
+    return None, callback, mean_reward, std_reward, epsilon_decay_per_step
 
 def plot_training_curves(callback, experiment_name):
     """
@@ -269,7 +270,7 @@ def hyperparameter_tuning_experiments(experiments, member_name):
         print(f"\n\nRunning {exp['name']} ({i}/10)...")
         
         try:
-            model, callback, mean_reward, std_reward = train_dqn_agent(
+            model, callback, mean_reward, std_reward, epsilon_decay_per_step = train_dqn_agent(
                 policy_type="CnnPolicy",
                 total_timesteps=500000,
                 learning_rate=exp['lr'],
@@ -290,6 +291,7 @@ def hyperparameter_tuning_experiments(experiments, member_name):
                 'eps_start': exp['eps_start'],
                 'eps_end': exp['eps_end'],
                 'exploration_fraction': exp['exploration_fraction'],
+                'epsilon_decay_per_step': epsilon_decay_per_step,
                 'mean_reward': mean_reward,
                 'std_reward': std_reward,
                 'behavior': analyze_behavior(callback, mean_reward)
