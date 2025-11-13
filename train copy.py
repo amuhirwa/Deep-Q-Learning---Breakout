@@ -417,7 +417,7 @@ def save_results(results, exp_name, member_name):
     print(f"  - results/{member_name}/hyperparameter_results_{exp_name}.txt")
 
 
-experiments = [
+experiments_michael = [
     {
         'name': 'Experiment_1_Baseline',
         'lr': 1e-4,
