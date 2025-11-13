@@ -509,7 +509,98 @@ experiments_michael = [
         'exploration_fraction': 0.05
     }
 ]
-
+experiments_Joan = [
+    {
+        'name': 'Experiment_1_Baseline',
+        'lr': 2e-4,
+        'gamma': 0.95,
+        'batch_size': 64,
+        'eps_start': 0.9,
+        'eps_end': 0.1,
+        'exploration_fraction': 0.2
+    },
+    {
+        'name': 'Experiment_2_HighLR',
+        'lr': 7e-4,
+        'gamma': 0.98,
+        'batch_size': 32,
+        'eps_start': 0.95,
+        'eps_end': 0.08,
+        'exploration_fraction': 0.15
+    },
+    {
+        'name': 'Experiment_3_LowLR',
+        'lr': 5e-5,
+        'gamma': 0.92,
+        'batch_size': 64,
+        'eps_start': 0.98,
+        'eps_end': 0.05,
+        'exploration_fraction': 0.25
+    },
+    {
+        'name': 'Experiment_4_HighGamma',
+        'lr': 1.5e-4,
+        'gamma': 0.995,
+        'batch_size': 32,
+        'eps_start': 1.0,
+        'eps_end': 0.03,
+        'exploration_fraction': 0.12
+    },
+    {
+        'name': 'Experiment_5_LowGamma',
+        'lr': 2e-4,
+        'gamma': 0.90,
+        'batch_size': 32,
+        'eps_start': 0.9,
+        'eps_end': 0.07,
+        'exploration_fraction': 0.3
+    },
+    {
+        'name': 'Experiment_6_LargeBatch',
+        'lr': 1.2e-4,
+        'gamma': 0.97,
+        'batch_size': 64,
+        'eps_start': 1.0,
+        'eps_end': 0.1,
+        'exploration_fraction': 0.18
+    },
+    {
+        'name': 'Experiment_7_SmallBatch',
+        'lr': 3e-4,
+        'gamma': 0.96,
+        'batch_size': 16,
+        'eps_start': 0.95,
+        'eps_end': 0.06,
+        'exploration_fraction': 0.14
+    },
+    {
+        'name': 'Experiment_8_SlowExploration',
+        'lr': 1e-4,
+        'gamma': 0.98,
+        'batch_size': 32,
+        'eps_start': 1.0,
+        'eps_end': 0.15,
+        'exploration_fraction': 0.35
+    },
+    {
+        'name': 'Experiment_9_FastExploration',
+        'lr': 2.5e-4,
+        'gamma': 0.97,
+        'batch_size': 32,
+        'eps_start': 1.0,
+        'eps_end': 0.02,
+        'exploration_fraction': 0.05
+    },
+    {
+        'name': 'Experiment_10_Aggressive',
+        'lr': 1e-3,
+        'gamma': 0.99,
+        'batch_size': 64,
+        'eps_start': 1.0,
+        'eps_end': 0.01,
+        'exploration_fraction': 0.08
+    }
+]
 
 def main():
     """
@@ -546,7 +637,7 @@ def main():
     
     # Option 3: Run hyperparameter tuning experiments
     print("\n\nOption 3: Run all 10 hyperparameter tuning experiments")
-    hyperparameter_tuning_experiments(experiments, "Michael")
+    hyperparameter_tuning_experiments(experiments_Joan, "Joan")
     
     print("\n\n" + "="*80)
     print("TRAINING COMPLETE!")

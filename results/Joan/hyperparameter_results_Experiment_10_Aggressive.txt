@@ -1,0 +1,17 @@
+HYPERPARAMETER TUNING RESULTS
+========================================================================================================================
+
+MEMBER NAME: Joan
+
+Experiment                | Hyperparameters                                                                  | Behavior                                          
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Experiment_1_Baseline     | ERROR: Unable to allocate 1.72 MiB for an array with shape (64, 4, 84, 84) and data type uint8
+Experiment_2_HighLR       | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_3_LowLR        | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_4_HighGamma    | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_5_LowGamma     | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_6_LargeBatch   | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_7_SmallBatch   | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_8_SlowExploration | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_9_FastExploration | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
+Experiment_10_Aggressive  | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
