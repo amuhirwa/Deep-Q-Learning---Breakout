@@ -164,10 +164,18 @@ def train_dqn_agent(
     # Plot training curves
     plot_training_curves(callback, experiment_name)
     
+    # --- Clean up to prevent memory leaks ---
     env.close()
-    
-    return model, callback, mean_reward, std_reward
+    del model
+    import gc
+    gc.collect()
+    try:
+        import torch
+        torch.cuda.empty_cache()
+    except ImportError:
+        pass
 
+    return None, callback, mean_reward, std_reward
 
 def plot_training_curves(callback, experiment_name):
     """
@@ -528,13 +536,11 @@ def main():
     )
     
     # Save as the primary model
-    model.save("models/dqn_model.zip")
-    print("\nPrimary model saved as: models/dqn_model.zip")
+    # model.save("models/dqn_model.zip")
+    # print("\nPrimary model saved as: models/dqn_model.zip")
     
     # Option 3: Run hyperparameter tuning experiments
     print("\n\nOption 3: Run all 10 hyperparameter tuning experiments")
-    print("WARNING: This will take considerable time!")
-    print("Uncomment the line below to run all experiments:")
     # Uncomment to run: hyperparameter_tuning_experiments(experiments)
     
     print("\n\n" + "="*80)
