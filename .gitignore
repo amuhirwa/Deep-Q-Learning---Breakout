@@ -1,9 +1,12 @@
 # Python cache
 __pycache__/
 
-# Virtual environment
+# Virtual environments
 venv/
 .venv/
 
-# Ignore only the curves folder
+# Ignore curve images
 curves/
+
+# Ignore log files
+*.log
