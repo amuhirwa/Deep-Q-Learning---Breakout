@@ -1,0 +1,17 @@
+HYPERPARAMETER TUNING RESULTS
+========================================================================================================================
+
+MEMBER NAME: Favour
+
+Experiment                | Hyperparameters                                                                  | Behavior                                          
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Favour_Exp1_MidGamma      | lr=1.00e-04, gamma=0.930, batch=32, eps_start=1.00, eps_end=0.050, expl_frac=0.20 | Mean Reward: 5.20 ± 2.18 | No improvement, stable, poor performance
+Favour_Exp2_HigherLR_Stable | lr=3.00e-04, gamma=0.990, batch=64, eps_start=0.90, eps_end=0.050, expl_frac=0.10 | Mean Reward: 13.80 ± 7.95 | No improvement, stable, moderate performance
+Favour_Exp3_VeryLowLR     | lr=8.00e-05, gamma=0.970, batch=32, eps_start=1.00, eps_end=0.020, expl_frac=0.25 | Mean Reward: 6.00 ± 2.37 | No improvement, stable, poor performance
+Favour_Exp4_ShortHorizon  | lr=2.00e-04, gamma=0.990, batch=16, eps_start=0.95, eps_end=0.050, expl_frac=0.08 | Mean Reward: 8.30 ± 2.57 | No improvement, stable, poor performance
+Favour_Exp5_LowGamma_Explorative | lr=6.00e-04, gamma=0.940, batch=32, eps_start=1.00, eps_end=0.100, expl_frac=0.30 | Mean Reward: 17.30 ± 2.72 | No improvement, stable, moderate performance
+Favour_Exp6_VeryLargeBatch | lr=1.00e-04, gamma=0.990, batch=128, eps_start=1.00, eps_end=0.050, expl_frac=0.10 | Mean Reward: 13.00 ± 4.12 | No improvement, stable, moderate performance
+Favour_Exp7_HighDiscount_SlowLR | lr=5.00e-05, gamma=0.993, batch=32, eps_start=0.90, eps_end=0.050, expl_frac=0.15 | Mean Reward: 4.90 ± 1.58 | No improvement, stable, poor performance
+Favour_Exp8_MidGamma_SlowExploration | lr=2.50e-04, gamma=0.950, batch=64, eps_start=1.00, eps_end=0.020, expl_frac=0.20 | Mean Reward: 9.30 ± 4.67 | No improvement, stable, poor performance
+Favour_Exp9_AggressiveButLongTerm | lr=1.00e-03, gamma=0.970, batch=32, eps_start=1.00, eps_end=0.010, expl_frac=0.12 | Mean Reward: 9.90 ± 2.26 | No improvement, stable, poor performance
+Favour_Exp10_VeryExplorative | lr=7.00e-05, gamma=0.900, batch=32, eps_start=0.85, eps_end=0.050, expl_frac=0.40 | Mean Reward: 10.50 ± 5.18 | No improvement, stable, moderate performance

@@ -13,8 +13,8 @@ curves/
 
 # Ignore large model files and training artifacts (except we'll add manually)
 logs/
-results/
 tensorboard_logs/
+models/
 
 # Ignore OS files
 .DS_Store
