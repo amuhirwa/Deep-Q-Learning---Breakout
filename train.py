@@ -67,8 +67,8 @@ def train_dqn_agent(
     exploration_fraction=0.1,
     exploration_initial_eps=1.0,
     exploration_final_eps=0.05,
-    buffer_size=100000,
-    learning_starts=50000,
+    buffer_size=10000,
+    learning_starts=1000,
     target_update_interval=1000,
     train_freq=4,
     experiment_name="default",
@@ -106,13 +106,15 @@ def train_dqn_agent(
     print(f"  Learning Rate: {learning_rate}")
     print(f"  Gamma: {gamma}")
     print(f"  Batch Size: {batch_size}")
+    print(f"  Buffer Size: {buffer_size}")
+    print(f"  Learning Starts: {learning_starts}")
     print(f"  Epsilon Start: {exploration_initial_eps}")
     print(f"  Epsilon End: {exploration_final_eps}")
     print(f"  Exploration Fraction: {exploration_fraction}")
     print(f"{'='*80}\n")
     
     # Create environment
-    env = setup_environment(n_envs=4)
+    env = setup_environment(n_envs=2)  # Reduced from 4 to 2 to save memory
     
     # Create DQN model
     model = DQN(
@@ -222,7 +224,7 @@ def compare_policies():
     for policy in ["MlpPolicy", "CnnPolicy"]:
         print(f"\n\nTesting {policy}...")
         try:
-            model, callback, mean_reward, std_reward = train_dqn_agent(
+            model, callback, mean_reward, std_reward, epsilon_decay_per_step = train_dqn_agent(
                 policy_type=policy,
                 total_timesteps=test_timesteps,
                 experiment_name=f"policy_comparison_{policy}",
@@ -252,10 +254,15 @@ def compare_policies():
     return results
 
 
-def hyperparameter_tuning_experiments(experiments, member_name):
+def hyperparameter_tuning_experiments(experiments, member_name, experiment_timesteps=50000):
     """
     Run multiple experiments with different hyperparameter configurations
     Returns a formatted table of results
+    
+    Args:
+        experiments: List of experiment configurations
+        member_name: Name of the team member running experiments
+        experiment_timesteps: Timesteps for all experiments (default: 50000)
     """
     
     # Define 10 different hyperparameter configurations    
@@ -263,16 +270,17 @@ def hyperparameter_tuning_experiments(experiments, member_name):
     
     print("\n" + "="*80)
     print("HYPERPARAMETER TUNING EXPERIMENTS")
+    print(f"Experiment timesteps: {experiment_timesteps}")
     print("="*80)
     
     # Run each experiment
     for i, exp in enumerate(experiments, 1):
-        print(f"\n\nRunning {exp['name']} ({i}/10)...")
+        print(f"\n\nRunning {exp['name']} ({i}/{len(experiments)}) - {experiment_timesteps} timesteps...")
         
         try:
             model, callback, mean_reward, std_reward, epsilon_decay_per_step = train_dqn_agent(
                 policy_type="CnnPolicy",
-                total_timesteps=500000,
+                total_timesteps=experiment_timesteps,
                 learning_rate=exp['lr'],
                 gamma=exp['gamma'],
                 batch_size=exp['batch_size'],
@@ -309,8 +317,10 @@ def hyperparameter_tuning_experiments(experiments, member_name):
     # Print results table
     print_results_table(results)
     
-    # Save results to file
-    save_results(results, exp['name'], member_name)
+    # Save results to file - use a generic name since this contains all experiments
+    # Use timestamp to avoid overwriting previous results
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    save_results(results, f"all_experiments_{timestamp}", member_name)
     
     return results
 
@@ -602,6 +612,99 @@ experiments_Joan = [
     }
 ]
 
+experiments_favour = [
+    {
+        'name': 'Favour_Exp1_MidGamma',
+        'lr': 1e-4,
+        'gamma': 0.93,
+        'batch_size': 32,
+        'eps_start': 1.0,
+        'eps_end': 0.05,
+        'exploration_fraction': 0.20
+    },
+    {
+        'name': 'Favour_Exp2_HigherLR_Stable',
+        'lr': 3e-4,
+        'gamma': 0.99,
+        'batch_size': 64,
+        'eps_start': 0.90,
+        'eps_end': 0.05,
+        'exploration_fraction': 0.10
+    },
+    {
+        'name': 'Favour_Exp3_VeryLowLR',
+        'lr': 8e-5,
+        'gamma': 0.97,
+        'batch_size': 32,
+        'eps_start': 1.0,
+        'eps_end': 0.02,
+        'exploration_fraction': 0.25
+    },
+    {
+        'name': 'Favour_Exp4_ShortHorizon',
+        'lr': 2e-4,
+        'gamma': 0.99,
+        'batch_size': 16,
+        'eps_start': 0.95,
+        'eps_end': 0.05,
+        'exploration_fraction': 0.08
+    },
+    {
+        'name': 'Favour_Exp5_LowGamma_Explorative',
+        'lr': 6e-4,
+        'gamma': 0.94,
+        'batch_size': 32,
+        'eps_start': 1.0,
+        'eps_end': 0.10,
+        'exploration_fraction': 0.30
+    },
+    {
+        'name': 'Favour_Exp6_VeryLargeBatch',
+        'lr': 1e-4,
+        'gamma': 0.99,
+        'batch_size': 128,
+        'eps_start': 1.0,
+        'eps_end': 0.05,
+        'exploration_fraction': 0.10
+    },
+    {
+        'name': 'Favour_Exp7_HighDiscount_SlowLR',
+        'lr': 5e-5,
+        'gamma': 0.993,
+        'batch_size': 32,
+        'eps_start': 0.90,
+        'eps_end': 0.05,
+        'exploration_fraction': 0.15
+    },
+    {
+        'name': 'Favour_Exp8_MidGamma_SlowExploration',
+        'lr': 2.5e-4,
+        'gamma': 0.95,
+        'batch_size': 64,
+        'eps_start': 1.0,
+        'eps_end': 0.02,
+        'exploration_fraction': 0.20
+    },
+    {
+        'name': 'Favour_Exp9_AggressiveButLongTerm',
+        'lr': 1e-3,
+        'gamma': 0.97,
+        'batch_size': 32,
+        'eps_start': 1.0,
+        'eps_end': 0.01,
+        'exploration_fraction': 0.12
+    },
+    {
+        'name': 'Favour_Exp10_VeryExplorative',
+        'lr': 7e-5,
+        'gamma': 0.90,
+        'batch_size': 32,
+        'eps_start': 0.85,
+        'eps_end': 0.05,
+        'exploration_fraction': 0.40
+    }
+]
+
 def main():
     """
     Main function to run training experiments
@@ -615,9 +718,9 @@ def main():
     print("\n\nOption 1: Compare MLP vs CNN policies")
     print("This will run quick tests to compare policy performance")
     # Uncomment to run: 
-    # compare_policies()
+    compare_policies()
     
-    # Option 2: Run single training with best hyperparameters
+    # Option 2: Run single training with best hyperparameters (main model)
     # print("\n\nOption 2: Train single model with specified hyperparameters")
     # model, callback, mean_reward, std_reward = train_dqn_agent(
     #     policy_type="CnnPolicy",
@@ -637,7 +740,11 @@ def main():
     
     # Option 3: Run hyperparameter tuning experiments
     print("\n\nOption 3: Run all 10 hyperparameter tuning experiments")
-    hyperparameter_tuning_experiments(experiments_Joan, "Joan")
+    # To run different experiment sets, change the parameters below:
+    # - experiments_michael, "Michael"
+    # - experiments_Joan, "Joan"
+    # - experiments_favour, "Favour"
+    hyperparameter_tuning_experiments(experiments_favour, "Favour")
     
     print("\n\n" + "="*80)
     print("TRAINING COMPLETE!")
