@@ -10,3 +10,15 @@ curves/
 
 # Ignore log files
 *.log
+
+# Ignore large model files and training artifacts
+models/
+logs/
+results/
+*.zip
+*.pkl
+tensorboard_logs/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
