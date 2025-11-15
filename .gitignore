@@ -12,7 +12,6 @@ curves/
 *.log
 
 # Ignore large model files and training artifacts
-models/
 logs/
 results/
 *.zip
