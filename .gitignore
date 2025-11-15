@@ -11,11 +11,9 @@ curves/
 # Ignore log files
 *.log
 
-# Ignore large model files and training artifacts
+# Ignore large model files and training artifacts (except we'll add manually)
 logs/
 results/
-*.zip
-*.pkl
 tensorboard_logs/
 
 # Ignore OS files
