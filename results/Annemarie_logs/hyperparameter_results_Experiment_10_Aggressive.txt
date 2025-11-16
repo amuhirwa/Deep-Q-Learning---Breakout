@@ -1,0 +1,17 @@
+HYPERPARAMETER TUNING RESULTS
+========================================================================================================================
+
+MEMBER NAME: Annemarie
+
+Experiment                | Hyperparameters                                                                  | Behavior                                          
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Experiment_1_Baseline     | lr=2.50e-04, gamma=0.960, batch=32, eps_start=0.95, eps_end=0.050, expl_frac=0.15 | Mean Reward: 13.00 ± 4.92 | Strong learning, stable, moderate performance
+Experiment_2_HighLR       | lr=8.00e-04, gamma=0.970, batch=32, eps_start=1.00, eps_end=0.060, expl_frac=0.12 | Mean Reward: 23.10 ± 7.38 | Strong learning, stable, good performance
+Experiment_3_LowLR        | lr=3.00e-05, gamma=0.940, batch=32, eps_start=0.92, eps_end=0.040, expl_frac=0.18 | Mean Reward: 11.00 ± 6.80 | Strong learning, stable, moderate performance
+Experiment_4_HighGamma    | lr=2.00e-04, gamma=0.992, batch=32, eps_start=0.98, eps_end=0.030, expl_frac=0.13 | Mean Reward: 14.60 ± 3.93 | Strong learning, stable, moderate performance
+Experiment_5_LowGamma     | lr=2.50e-04, gamma=0.910, batch=32, eps_start=0.93, eps_end=0.080, expl_frac=0.22 | Mean Reward: 18.10 ± 7.20 | Strong learning, stable, moderate performance
+Experiment_6_LargeBatch   | lr=2.00e-04, gamma=0.960, batch=48, eps_start=0.95, eps_end=0.050, expl_frac=0.16 | Mean Reward: 20.40 ± 4.27 | Strong learning, stable, good performance
+Experiment_7_SmallBatch   | lr=3.00e-04, gamma=0.950, batch=24, eps_start=0.94, eps_end=0.070, expl_frac=0.17 | Mean Reward: 20.20 ± 5.02 | Strong learning, stable, good performance
+Experiment_8_SlowExploration | lr=2.00e-04, gamma=0.960, batch=32, eps_start=1.00, eps_end=0.120, expl_frac=0.28 | Mean Reward: 13.00 ± 4.00 | Strong learning, stable, moderate performance
+Experiment_9_FastExploration | lr=2.50e-04, gamma=0.970, batch=32, eps_start=0.98, eps_end=0.015, expl_frac=0.06 | Mean Reward: 13.50 ± 5.92 | Strong learning, stable, moderate performance
+Experiment_10_Aggressive  | lr=1.20e-03, gamma=0.980, batch=48, eps_start=1.00, eps_end=0.020, expl_frac=0.07 | Mean Reward: 18.80 ± 6.01 | Strong learning, stable, moderate performance
