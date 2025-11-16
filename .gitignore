@@ -10,7 +10,7 @@ curves/
 
 
 # Ignore large model files and training artifacts
-logs/
+# logs/  # Commented out to allow pushing logs to GitHub
 results/
 tensorboard_logs/
 models/
