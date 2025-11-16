@@ -8,8 +8,6 @@ venv/
 # Ignore curve images
 curves/
 
-# Ignore log files
-*.log
 
 # Ignore large model files and training artifacts
 logs/
