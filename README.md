@@ -52,6 +52,33 @@ The CNN policy uses convolutional layers to extract spatial features from image 
 - Policy type: `CnnPolicy` from Stable-Baselines3
 - TensorBoard logging: `./logs/dqn_cnn_tensorboard/`
 
+## Best Model & Experiment Results
+
+After running the hyperparameter sweep in `results/Favour/hyperparameter_results_all_experiments_20251115_013535.[json|txt]`, the best-performing checkpoint was **Favour_Exp5_LowGamma_Explorative**. Its model file lives at:
+
+```
+models/dqn_model_Favour_Exp5_LowGamma_Explorative.zip
+```
+
+| Experiment | Mean Reward | Std Reward | Behavior | Model Path |
+|------------|-------------|------------|----------|------------|
+| Favour_Exp1_MidGamma | 5.2 | 2.18 | No improvement, stable, poor performance | `models/dqn_model_Favour_Exp1_MidGamma.zip` |
+| Favour_Exp2_HigherLR_Stable | 13.8 | 7.95 | No improvement, stable, moderate performance | `models/dqn_model_Favour_Exp2_HigherLR_Stable.zip` |
+| Favour_Exp3_VeryLowLR | 6.0 | 2.37 | No improvement, stable, poor performance | `models/dqn_model_Favour_Exp3_VeryLowLR.zip` |
+| Favour_Exp4_ShortHorizon | 8.3 | 2.57 | No improvement, stable, poor performance | `models/dqn_model_Favour_Exp4_ShortHorizon.zip` |
+| **Favour_Exp5_LowGamma_Explorative** | **17.3** | **2.72** | **No improvement, stable, moderate performance** | **`models/dqn_model_Favour_Exp5_LowGamma_Explorative.zip`** |
+| Favour_Exp6_VeryLargeBatch | 13.0 | 4.12 | No improvement, stable, moderate performance | `models/dqn_model_Favour_Exp6_VeryLargeBatch.zip` |
+| Favour_Exp7_HighDiscount_SlowLR | 4.9 | 1.58 | No improvement, stable, poor performance | `models/dqn_model_Favour_Exp7_HighDiscount_SlowLR.zip` |
+| Favour_Exp8_MidGamma_SlowExploration | 9.3 | 4.67 | No improvement, stable, poor performance | `models/dqn_model_Favour_Exp8_MidGamma_SlowExploration.zip` |
+| Favour_Exp9_AggressiveButLongTerm | 9.9 | 2.26 | No improvement, stable, poor performance | `models/dqn_model_Favour_Exp9_AggressiveButLongTerm.zip` |
+| Favour_Exp10_VeryExplorative | 10.5 | 5.18 | No improvement, stable, moderate performance | `models/dqn_model_Favour_Exp10_VeryExplorative.zip` |
+
+You can play any model with:
+
+```bash
+python play.py --model <path_to_model.zip> --episodes 10 --render
+```
+
 ## Chosen Policy for Atari Breakout
 
 **CNN (Convolutional Neural Network) Policy** was selected as the optimal policy architecture for the Atari Breakout environment.
