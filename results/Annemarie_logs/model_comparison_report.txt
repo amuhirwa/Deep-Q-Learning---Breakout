@@ -1,0 +1,52 @@
+========================================================================================================================
+MODEL COMPARISON REPORT
+========================================================================================================================
+
+Member: Annemarie
+Total Experiments: 10
+Date: Sun 11/16/2025
+
+========================================================================================================================
+🏆 BEST PERFORMING MODEL
+========================================================================================================================
+
+Experiment: Experiment_2_HighLR
+Mean Reward: 23.10 ± 7.38
+
+Hyperparameters:
+  - Learning Rate: 8.00e-04
+  - Gamma: 0.970
+  - Batch Size: 32
+  - Epsilon Start: 1.00
+  - Epsilon End: 0.060
+  - Exploration Fraction: 0.12
+  - Epsilon Decay Per Step: 1.57e-05
+  - Behavior: Strong learning, stable, good performance
+
+========================================================================================================================
+RANKED RESULTS (Best to Worst)
+========================================================================================================================
+
+Rank   Experiment                     Mean Reward     Std Reward      LR           Gamma    Batch    Behavior                                
+------------------------------------------------------------------------------------------------------------------------
+1      Experiment_2_HighLR            23.10           7.38            8.00e-04     0.970    32       Strong learning, stable, good performance
+2      Experiment_6_LargeBatch        20.40           4.27            2.00e-04     0.960    48       Strong learning, stable, good performance
+3      Experiment_7_SmallBatch        20.20           5.02            3.00e-04     0.950    24       Strong learning, stable, good performance
+4      Experiment_10_Aggressive       18.80           6.01            1.20e-03     0.980    48       Strong learning, stable, moderate performance
+5      Experiment_5_LowGamma          18.10           7.20            2.50e-04     0.910    32       Strong learning, stable, moderate performance
+6      Experiment_4_HighGamma         14.60           3.93            2.00e-04     0.992    32       Strong learning, stable, moderate performance
+7      Experiment_9_FastExploration   13.50           5.92            2.50e-04     0.970    32       Strong learning, stable, moderate performance
+8      Experiment_1_Baseline          13.00           4.92            2.50e-04     0.960    32       Strong learning, stable, moderate performance
+9      Experiment_8_SlowExploration   13.00           4.00            2.00e-04     0.960    32       Strong learning, stable, moderate performance
+10     Experiment_3_LowLR             11.00           6.80            3.00e-05     0.940    32       Strong learning, stable, moderate performance
+
+========================================================================================================================
+STATISTICAL SUMMARY
+========================================================================================================================
+
+Highest Reward: 23.10
+Lowest Reward: 11.00
+Average Reward: 16.57
+Median Reward: 16.35
+Standard Deviation: 3.84
+Range: 12.10
