@@ -72,7 +72,8 @@ def train_dqn_agent(
     target_update_interval=1000,
     train_freq=4,
     experiment_name="default",
-    save_model=True
+    save_model=True,
+    member_name="default"
 ):
     """
     Train a DQN agent with specified hyperparameters
@@ -92,6 +93,7 @@ def train_dqn_agent(
         train_freq: Frequency of training updates
         experiment_name: Name for saving results
         save_model: Whether to save the trained model
+        member_name: Name of the team member (for organizing results)
     
     Returns:
         model: Trained DQN model
@@ -99,8 +101,18 @@ def train_dqn_agent(
     """
     epsilon_decay_per_step = (exploration_initial_eps - exploration_final_eps) / (exploration_fraction * total_timesteps)
 
+    # Create member-specific directories
+    member_logs_dir = f"logs/{member_name}_logs"
+    member_models_dir = f"models/{member_name}_logs"
+    member_results_dir = f"results/{member_name}_logs"
+    
+    os.makedirs(member_logs_dir, exist_ok=True)
+    os.makedirs(member_models_dir, exist_ok=True)
+    os.makedirs(member_results_dir, exist_ok=True)
+
     print(f"\n{'='*80}")
     print(f"Starting Experiment: {experiment_name}")
+    print(f"Member: {member_name}")
     print(f"Policy: {policy_type}")
     print(f"Hyperparameters:")
     print(f"  Learning Rate: {learning_rate}")
@@ -131,13 +143,13 @@ def train_dqn_agent(
         exploration_initial_eps=exploration_initial_eps,
         exploration_final_eps=exploration_final_eps,
         verbose=1,
-        tensorboard_log=f"./logs/{experiment_name}"
+        tensorboard_log=f"./{member_logs_dir}/{experiment_name}"
     )
     
     # Create callback
     callback = TrainingCallback(
         check_freq=10000,
-        log_dir="logs",
+        log_dir=member_logs_dir,
         verbose=1
     )
     
@@ -151,7 +163,7 @@ def train_dqn_agent(
     
     # Save the model
     if save_model:
-        model_path = f"models/dqn_model_{experiment_name}.zip"
+        model_path = f"{member_models_dir}/dqn_model_{experiment_name}.zip"
         model.save(model_path)
         print(f"\nModel saved to: {model_path}")
         
@@ -164,7 +176,7 @@ def train_dqn_agent(
     print(f"Mean Reward: {mean_reward:.2f} +/- {std_reward:.2f}")
     
     # Plot training curves
-    plot_training_curves(callback, experiment_name)
+    plot_training_curves(callback, experiment_name, member_results_dir)
     
     # --- Clean up to prevent memory leaks ---
     env.close()
@@ -179,7 +191,7 @@ def train_dqn_agent(
 
     return None, callback, mean_reward, std_reward, epsilon_decay_per_step
 
-def plot_training_curves(callback, experiment_name):
+def plot_training_curves(callback, experiment_name, results_dir="results"):
     """
     Plot and save training curves
     """
@@ -202,12 +214,12 @@ def plot_training_curves(callback, experiment_name):
         ax2.grid(True)
     
     plt.tight_layout()
-    plt.savefig(f'results/training_curves_{experiment_name}.png')
+    plt.savefig(f'{results_dir}/training_curves_{experiment_name}.png')
     plt.close()
-    print(f"Training curves saved to: results/training_curves_{experiment_name}.png")
+    print(f"Training curves saved to: {results_dir}/training_curves_{experiment_name}.png")
 
 
-def compare_policies():
+def compare_policies(member_name="default"):
     """
     Compare MLP and CNN policies
     Note: For Atari games, CNN is strongly recommended due to visual input
@@ -224,11 +236,12 @@ def compare_policies():
     for policy in ["MlpPolicy", "CnnPolicy"]:
         print(f"\n\nTesting {policy}...")
         try:
-            model, callback, mean_reward, std_reward, epsilon_decay_per_step = train_dqn_agent(
+            model, callback, mean_reward, std_reward = train_dqn_agent(
                 policy_type=policy,
                 total_timesteps=test_timesteps,
                 experiment_name=f"policy_comparison_{policy}",
-                save_model=False
+                save_model=False,
+                member_name=member_name
             )
             results[policy] = {
                 'mean_reward': mean_reward,
@@ -287,7 +300,8 @@ def hyperparameter_tuning_experiments(experiments, member_name, experiment_times
                 exploration_initial_eps=exp['eps_start'],
                 exploration_final_eps=exp['eps_end'],
                 exploration_fraction=exp['exploration_fraction'],
-                experiment_name=exp['name']
+                experiment_name=exp['name'],
+                member_name=member_name
             )
             
             # Collect results
@@ -399,15 +413,15 @@ def save_results(results, exp_name, member_name):
     Save results to JSON and formatted text file
     """
     # Create the member-specific results directory if it doesn't exist
-    save_dir = os.path.join("results", member_name)
+    save_dir = os.path.join("results", f"{member_name}_logs")
     os.makedirs(save_dir, exist_ok=True)
 
     # Save as JSON
-    with open(f'results/{member_name}/hyperparameter_results_{exp_name}.json', 'w') as f:
+    with open(f'results/{member_name}_logs/hyperparameter_results_{exp_name}.json', 'w') as f:
         json.dump(results, f, indent=2)
     
     # Save as formatted text
-    with open(f'results/{member_name}/hyperparameter_results_{exp_name}.txt', 'w') as f:
+    with open(f'results/{member_name}_logs/hyperparameter_results_{exp_name}.txt', 'w') as f:
         f.write("HYPERPARAMETER TUNING RESULTS\n")
         f.write("="*120 + "\n\n")
         f.write(f"MEMBER NAME: {member_name}\n\n")
@@ -423,8 +437,8 @@ def save_results(results, exp_name, member_name):
                 f.write(f"{result['experiment']:<25} | ERROR: {result['error']}\n")
     
     print(f"\nResults saved to:")
-    print(f"  - results/{member_name}/hyperparameter_results_{exp_name}.json")
-    print(f"  - results/{member_name}/hyperparameter_results_{exp_name}.txt")
+    print(f"  - results/{member_name}_logs/hyperparameter_results_{exp_name}.json")
+    print(f"  - results/{member_name}_logs/hyperparameter_results_{exp_name}.txt")
 
 
 experiments_michael = [
@@ -612,99 +626,6 @@ experiments_Joan = [
     }
 ]
 
-experiments_favour = [
-    {
-        'name': 'Favour_Exp1_MidGamma',
-        'lr': 1e-4,
-        'gamma': 0.93,
-        'batch_size': 32,
-        'eps_start': 1.0,
-        'eps_end': 0.05,
-        'exploration_fraction': 0.20
-    },
-    {
-        'name': 'Favour_Exp2_HigherLR_Stable',
-        'lr': 3e-4,
-        'gamma': 0.99,
-        'batch_size': 64,
-        'eps_start': 0.90,
-        'eps_end': 0.05,
-        'exploration_fraction': 0.10
-    },
-    {
-        'name': 'Favour_Exp3_VeryLowLR',
-        'lr': 8e-5,
-        'gamma': 0.97,
-        'batch_size': 32,
-        'eps_start': 1.0,
-        'eps_end': 0.02,
-        'exploration_fraction': 0.25
-    },
-    {
-        'name': 'Favour_Exp4_ShortHorizon',
-        'lr': 2e-4,
-        'gamma': 0.99,
-        'batch_size': 16,
-        'eps_start': 0.95,
-        'eps_end': 0.05,
-        'exploration_fraction': 0.08
-    },
-    {
-        'name': 'Favour_Exp5_LowGamma_Explorative',
-        'lr': 6e-4,
-        'gamma': 0.94,
-        'batch_size': 32,
-        'eps_start': 1.0,
-        'eps_end': 0.10,
-        'exploration_fraction': 0.30
-    },
-    {
-        'name': 'Favour_Exp6_VeryLargeBatch',
-        'lr': 1e-4,
-        'gamma': 0.99,
-        'batch_size': 128,
-        'eps_start': 1.0,
-        'eps_end': 0.05,
-        'exploration_fraction': 0.10
-    },
-    {
-        'name': 'Favour_Exp7_HighDiscount_SlowLR',
-        'lr': 5e-5,
-        'gamma': 0.993,
-        'batch_size': 32,
-        'eps_start': 0.90,
-        'eps_end': 0.05,
-        'exploration_fraction': 0.15
-    },
-    {
-        'name': 'Favour_Exp8_MidGamma_SlowExploration',
-        'lr': 2.5e-4,
-        'gamma': 0.95,
-        'batch_size': 64,
-        'eps_start': 1.0,
-        'eps_end': 0.02,
-        'exploration_fraction': 0.20
-    },
-    {
-        'name': 'Favour_Exp9_AggressiveButLongTerm',
-        'lr': 1e-3,
-        'gamma': 0.97,
-        'batch_size': 32,
-        'eps_start': 1.0,
-        'eps_end': 0.01,
-        'exploration_fraction': 0.12
-    },
-    {
-        'name': 'Favour_Exp10_VeryExplorative',
-        'lr': 7e-5,
-        'gamma': 0.90,
-        'batch_size': 32,
-        'eps_start': 0.85,
-        'eps_end': 0.05,
-        'exploration_fraction': 0.40
-    }
-]
-
 def main():
     """
     Main function to run training experiments
@@ -718,11 +639,11 @@ def main():
     print("\n\nOption 1: Compare MLP vs CNN policies")
     print("This will run quick tests to compare policy performance")
     # Uncomment to run: 
-    compare_policies()
+    # compare_policies()
     
     # Option 2: Run single training with best hyperparameters (main model)
     # print("\n\nOption 2: Train single model with specified hyperparameters")
-    # model, callback, mean_reward, std_reward = train_dqn_agent(
+    # model, callback, mean_reward, std_reward, _ = train_dqn_agent(
     #     policy_type="CnnPolicy",
     #     total_timesteps=1000000,
     #     learning_rate=1e-4,
@@ -731,7 +652,8 @@ def main():
     #     exploration_initial_eps=1.0,
     #     exploration_final_eps=0.05,
     #     exploration_fraction=0.1,
-    #     experiment_name="final_model"
+    #     experiment_name="final_model",
+    #     member_name="YourName"
     # )
     
     # # Save as the primary model
@@ -740,16 +662,12 @@ def main():
     
     # Option 3: Run hyperparameter tuning experiments
     print("\n\nOption 3: Run all 10 hyperparameter tuning experiments")
-    # To run different experiment sets, change the parameters below:
-    # - experiments_michael, "Michael"
-    # - experiments_Joan, "Joan"
-    # - experiments_favour, "Favour"
-    hyperparameter_tuning_experiments(experiments_favour, "Favour")
+    hyperparameter_tuning_experiments(experiments_Joan, "Joan")
     
     print("\n\n" + "="*80)
     print("TRAINING COMPLETE!")
     print("="*80)
-    print("\nTo run hyperparameter experiments, uncomment the line in main()")
+    print("\nTo run hyperparameter experiments, uncomment the desired line in main()")
     print("To compare policies, uncomment the compare_policies() call")
 
 

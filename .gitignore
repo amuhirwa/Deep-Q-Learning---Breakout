@@ -8,15 +8,12 @@ venv/
 # Ignore curve images
 curves/
 
-
-# Ignore large model files and training artifacts
-# logs/  # Commented out to allow pushing logs to GitHub
-results/
-tensorboard_logs/
-models/
-*.zip
-*.pkl
-
 # Ignore OS files
 .DS_Store
 Thumbs.db
+
+# Ignore only temporary files (keep models, results, logs)
+tensorboard_logs/
+*.log
+__pycache__/
+*.pyc
