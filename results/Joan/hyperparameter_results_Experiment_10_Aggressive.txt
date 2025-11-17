@@ -5,7 +5,13 @@ MEMBER NAME: Joan
 
 Experiment                | Hyperparameters                                                                  | Behavior                                          
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Experiment_1_Baseline     | ERROR: Unable to allocate 1.72 MiB for an array with shape (64, 4, 84, 84) and data type uint8
+Experiment_1_Baseline     | ERROR: Can't find a usable init.tcl in the following directories: 
+    C:/Users/HP/AppData/Local/Programs/Python/Python313/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/Python/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/Python/library C:/Users/HP/AppData/Local/Programs/library C:/Users/HP/AppData/Local/Programs/tcl8.6.14/library C:/Users/HP/AppData/Local/tcl8.6.14/library
+
+
+
+This probably means that Tcl wasn't installed properly.
+
 Experiment_2_HighLR       | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
 Experiment_3_LowLR        | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8
 Experiment_4_HighGamma    | ERROR: Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8

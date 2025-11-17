@@ -1,7 +1,7 @@
 [
   {
     "experiment": "Experiment_1_Baseline",
-    "error": "Unable to allocate 1.72 MiB for an array with shape (64, 4, 84, 84) and data type uint8",
+    "error": "Can't find a usable init.tcl in the following directories: \n    C:/Users/HP/AppData/Local/Programs/Python/Python313/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/Python/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/Python/library C:/Users/HP/AppData/Local/Programs/library C:/Users/HP/AppData/Local/Programs/tcl8.6.14/library C:/Users/HP/AppData/Local/tcl8.6.14/library\n\n\n\nThis probably means that Tcl wasn't installed properly.\n",
     "behavior": "Failed"
   },
   {

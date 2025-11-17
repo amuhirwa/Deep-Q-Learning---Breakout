@@ -217,7 +217,7 @@ def compare_policies():
     results = {}
     
     # Test with reduced timesteps for quick comparison
-    test_timesteps = 100000
+    test_timesteps = 20000
     
     for policy in ["MlpPolicy", "CnnPolicy"]:
         print(f"\n\nTesting {policy}...")
