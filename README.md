@@ -79,6 +79,13 @@ You can play any model with:
 python play.py --model <path_to_model.zip> --episodes 10 --render
 ```
 
+### Hyperparameter Tuning Discussion
+
+- **Exploration strategy wins:** The best run (`Favour_Exp5_LowGamma_Explorative`) pairs a relatively high learning rate (6e-4) with lower gamma (0.94) and slow epsilon decay (exploration_fraction 0.3, eps_end 0.1). Keeping exploration high for longer clearly helped Breakout.
+- **High gamma ≠ higher reward:** Multiple 0.99 gamma runs (Exp2, Exp6) plateau around 13 mean reward despite different batch sizes/lrs, and show higher variance.
+- **Very low learning rates and big batches underperform:** Experiments 1, 3, 4, 7 never broke 9 mean reward; they are stable but show “poor performance”.
+- **Overall takeaway:** Favor moderate gamma with a generous exploration schedule. If you rerun sweeps, start from Exp5’s configuration and adjust around it.
+
 ## Chosen Policy for Atari Breakout
 
 **CNN (Convolutional Neural Network) Policy** was selected as the optimal policy architecture for the Atari Breakout environment.
