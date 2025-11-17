@@ -2,6 +2,8 @@
 
 A Deep Q-Network (DQN) implementation for training an agent to play Atari Breakout using Stable-Baselines3. This project explores different hyperparameter configurations through systematic experimentation to determine the optimal policy for the Atari Breakout environment.
 
+Link to the Demo Video: https://drive.google.com/file/d/1RhiddOiLw6MOAEnELpubP8qma0tG-r83/view?usp=sharing
+
 ## Project Structure
 
 The project is organized into modular components for better code organization and maintainability:
@@ -630,6 +632,17 @@ This organization allows multiple team members to run experiments without confli
 - numpy >= 1.24.0
 - torch >= 2.0.0
 - matplotlib >= 3.7.0
+
+## Team Contributions
+
+| Team Member | Contribution |
+|------------|--------------|
+| **Anne Marie** | Defined the DQN Agent using Stable Baselines3. Implemented comparison between MLPPolicy (Multilayer Perceptron) and CNNPolicy (Convolutional Neural Network) policies to determine optimal performance for the Atari Breakout environment. Created the `compare_policies()` function for policy evaluation. |
+| **Michael** | Created the `train_dqn_agent()` function with comprehensive hyperparameter configuration. Set up training infrastructure including logging system, checkpoints, and results saving. Implemented the `TrainingCallback` class for metrics tracking and developed the `plot_training_curves()` visualization function. Conducted boundary-testing experiments to identify critical parameter thresholds. |
+| **Joan** | Developed the hyperparameter tuning framework. Created the `hyperparameter_tuning_experiments()` function to systematically test different configurations. Implemented the `analyze_behavior()` function for training analysis and created formatted result tables with `print_results_table()` and `save_results()` functions. |
+| **Favour** | Developed the `play.py` script for model evaluation. Implemented the model loading system, episode playing functionality with rendering capabilities, and environment setup for gameplay visualization. Created command-line interface for interactive model testing and evaluation with the `play_episode()` and `play_model()` functions. |
+
+
 
 ## Conclusion
 
