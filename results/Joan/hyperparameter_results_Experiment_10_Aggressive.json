@@ -1,0 +1,52 @@
+[
+  {
+    "experiment": "Experiment_1_Baseline",
+    "error": "Can't find a usable init.tcl in the following directories: \n    C:/Users/HP/AppData/Local/Programs/Python/Python313/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/Python/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/lib/tcl8.6 C:/Users/HP/AppData/Local/Programs/Python/library C:/Users/HP/AppData/Local/Programs/library C:/Users/HP/AppData/Local/Programs/tcl8.6.14/library C:/Users/HP/AppData/Local/tcl8.6.14/library\n\n\n\nThis probably means that Tcl wasn't installed properly.\n",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_2_HighLR",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_3_LowLR",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_4_HighGamma",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_5_LowGamma",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_6_LargeBatch",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_7_SmallBatch",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_8_SlowExploration",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_9_FastExploration",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  },
+  {
+    "experiment": "Experiment_10_Aggressive",
+    "error": "Unable to allocate 2.63 GiB for an array with shape (25000, 4, 4, 84, 84) and data type uint8",
+    "behavior": "Failed"
+  }
+]
