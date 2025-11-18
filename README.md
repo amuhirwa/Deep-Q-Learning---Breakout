@@ -125,11 +125,11 @@ The MLP policy is not recommended for Atari Breakout because:
 
 - **Poor Performance**: Empirical evidence and theoretical understanding indicate that MLP policies would perform poorly on visual tasks like Atari games.
 
-## Hyperparameter Tuning Experiments
+## Hyperparameter Tuning Experiments (Anne Marie)
 
 A comprehensive hyperparameter tuning study was conducted with 10 different configurations to identify the optimal hyperparameters for the DQN agent. Each experiment was trained for 500,000 timesteps using the CNN policy.
 
-### Experiment Configurations
+### Experiment Configurations (Anne Marie)
 
 | Experiment                       | Learning Rate | Gamma | Batch Size | Epsilon Start | Epsilon End | Exploration Fraction | Description                                            |
 | -------------------------------- | ------------- | ----- | ---------- | ------------- | ----------- | -------------------- | ------------------------------------------------------ |
@@ -152,15 +152,15 @@ A comprehensive hyperparameter tuning study was conducted with 10 different conf
 - **Number of Parallel Environments**: 4
 - **Evaluation Episodes**: 10 episodes per experiment
 
-## Experimental Results
+## Experimental Results (Anne Marie)
 
 ### Performance Results Table
 
 | Rank     | Experiment                   | Mean Reward | Std Reward | Learning Rate | Gamma | Batch Size | Behavior Analysis                                                                                                                                                                                                                                                                                        |
 | -------- | ---------------------------- | ----------- | ---------- | ------------- | ----- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🥇 **1** | **Experiment_2_HighLR**      | **23.10**   | ±7.38      | 8.00e-04      | 0.970 | 32         | **Best performer**: High LR (8.00e-04, 3.2x baseline) enabled rapid learning. Moderate exploration (0.12) balanced exploration-exploitation. Gamma 0.970 optimized long-term rewards. Higher std (7.38) indicates variability but strong overall performance. 77.7% improvement over baseline.           |
-| 🥈 **2** | **Experiment_6_LargeBatch**  | **20.40**   | ±4.27      | 2.00e-04      | 0.960 | 48         | **Excellent stability**: Large batch size (48) provided stable gradients and lower variance (std 4.27). Moderate LR (2.00e-04) with balanced exploration (0.16). Most stable top performer, indicating batch size significantly impacts training stability.                                              |
-| 🥉 **3** | **Experiment_7_SmallBatch**  | **20.20**   | ±5.02      | 3.00e-04      | 0.950 | 24         | **Fast learning**: Small batch (24) enabled frequent updates with slightly higher LR (3.00e-04). Moderate exploration (0.17) maintained good balance. Slightly higher variance (std 5.02) than large batch but achieved similar performance, showing batch size flexibility.                             |
+|  **1** | **Experiment_2_HighLR**      | **23.10**   | ±7.38      | 8.00e-04      | 0.970 | 32         | **Best performer**: High LR (8.00e-04, 3.2x baseline) enabled rapid learning. Moderate exploration (0.12) balanced exploration-exploitation. Gamma 0.970 optimized long-term rewards. Higher std (7.38) indicates variability but strong overall performance. 77.7% improvement over baseline.           |
+|  **2** | **Experiment_6_LargeBatch**  | **20.40**   | ±4.27      | 2.00e-04      | 0.960 | 48         | **Excellent stability**: Large batch size (48) provided stable gradients and lower variance (std 4.27). Moderate LR (2.00e-04) with balanced exploration (0.16). Most stable top performer, indicating batch size significantly impacts training stability.                                              |
+|  **3** | **Experiment_7_SmallBatch**  | **20.20**   | ±5.02      | 3.00e-04      | 0.950 | 24         | **Fast learning**: Small batch (24) enabled frequent updates with slightly higher LR (3.00e-04). Moderate exploration (0.17) maintained good balance. Slightly higher variance (std 5.02) than large batch but achieved similar performance, showing batch size flexibility.                             |
 | 4        | Experiment_10_Aggressive     | 18.80       | ±6.01      | 1.20e-03      | 0.980 | 48         | **Aggressive config**: Very high LR (1.20e-03, highest) with fast exploration decay (0.07). Large batch (48) stabilized training. High std (6.01) suggests aggressive learning caused variability. Gamma 0.980 emphasizes long-term rewards. Good performance but less stable than top 3.                |
 | 5        | Experiment_5_LowGamma        | 18.10       | ±7.20      | 2.50e-04      | 0.910 | 32         | **Short-term focus**: Low gamma (0.91) prioritized immediate rewards, effective for Breakout's short-term nature. Higher exploration (0.22) maintained exploration. High std (7.20) indicates variability. Performance suggests lower gamma can be beneficial for immediate-reward games.                |
 | 6        | Experiment_4_HighGamma       | 14.60       | ±3.93      | 2.00e-04      | 0.992 | 32         | **Long-term focus**: Very high gamma (0.992) emphasized distant rewards, less optimal for Breakout's immediate rewards. Low LR (2.00e-04) with moderate exploration (0.13). Low std (3.93) shows stability but lower performance, indicating high gamma may not suit this environment.                   |
