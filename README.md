@@ -250,7 +250,7 @@ Four team members conducted systematic hyperparameter studies totaling 40 experi
 | **Michael** | 27.0 | 1e-3 | 0.95 | 64 | Boundary testing |
 | **Anne Marie** | 23.1 | 8e-4 | 0.97 | 32 | Moderate variations |
 | **Joan** | 20.1 | 1e-3 | 0.99 | 64 | Diverse configs |
-| **Favour** | 17.3 | 6e-4 | 0.94 | - | Exploration focus |
+| **Favour** | 17.3 | 6e-4 | 0.94 |32 | Exploration focus |
 
 **Key Pattern**: Higher rewards achieved with:
 - Higher LR (7e-4 to 1e-3)
